@@ -1,9 +1,9 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { multerUpload } from '../../config/multer.config';
 import validateRequest from '../../middlewares/validateRequest';
-import { UserValidation } from './user.validation';
 import { UserControllers } from './user.controller';
 import auth from '../../middlewares/user.auth';
+import { UserValidations } from './user.validation';
 
 const router = express.Router();
 
@@ -17,13 +17,13 @@ router.post(
     };
     next();
   },
-  validateRequest(UserValidation.createUserValidationSchema),
+  validateRequest(UserValidations.createUserValidationSchema),
   UserControllers.registerUser,
 );
 
 router.post(
   '/login',
-  validateRequest(UserValidation.loginValidationSchema),
+  validateRequest(UserValidations.loginValidationSchema),
   UserControllers.loginUser,
 );
 
@@ -32,13 +32,20 @@ router.patch(
   auth('admin'),
   multerUpload.single('image'),
   (req: Request, res: Response, next: NextFunction) => {
+    const data = JSON.parse(req?.body?.data);
+    let imgLink = '';
+    if (req?.file) {
+      imgLink = req?.file?.path;
+    } else {
+      imgLink = data?.profile;
+    }
     req.body = {
-      ...JSON.parse(req?.body?.data),
-      profile: req?.file?.path,
+      ...data,
+      profile: imgLink,
     };
     next();
   },
-  validateRequest(UserValidation.updateUserValidationSchema),
+  validateRequest(UserValidations.updateUserValidationSchema),
   UserControllers.updateUser,
 );
 
@@ -48,20 +55,20 @@ router.get('/users/:id', auth('admin'), UserControllers.getUserById);
 router.patch(
   '/user-email',
   auth('admin'),
-  validateRequest(UserValidation.updateUserEmailValidationSchema),
+  validateRequest(UserValidations.updateUserEmailValidationSchema),
   UserControllers.updateUserEmail,
 );
 
 router.post(
   '/change-password',
   auth('admin'),
-  validateRequest(UserValidation.changePasswordValidationSchema),
+  validateRequest(UserValidations.changePasswordValidationSchema),
   UserControllers.changePassword,
 );
 
 router.post(
   '/refresh-token',
-  validateRequest(UserValidation.refreshTokenValidationSchema),
+  validateRequest(UserValidations.refreshTokenValidationSchema),
   UserControllers.refreshToken,
 );
 
