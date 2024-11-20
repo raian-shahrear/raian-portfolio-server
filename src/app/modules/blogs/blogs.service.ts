@@ -39,7 +39,7 @@ const updateBlogIntoDB = async (
 ) => {
   // checking logged in user
   const loggedInUser = await UserModel.findOne({ email: user.userEmail });
-  if (loggedInUser?._id.toString() !== id) {
+  if (!loggedInUser) {
     throw new AppError(httpStatus.FORBIDDEN, 'Unauthorized user!');
   }
 
@@ -51,7 +51,7 @@ const updateBlogIntoDB = async (
 const deleteBlogIntoDB = async (id: string, user: Record<string, unknown>) => {
   // checking logged in user
   const loggedInUser = await UserModel.findOne({ email: user.userEmail });
-  if (loggedInUser?._id.toString() !== id) {
+  if (!loggedInUser) {
     throw new AppError(httpStatus.FORBIDDEN, 'Unauthorized user!');
   }
 
