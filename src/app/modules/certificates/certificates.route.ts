@@ -10,34 +10,20 @@ const router = express.Router();
 router.post(
   '/',
   auth('admin'),
-  validateRequest(
-    CertificatesValidations.createCertificatesValidationSchema
-  ),
-  CertificatesControllers.createCertificate
+  validateRequest(CertificatesValidations.createCertificatesValidationSchema),
+  CertificatesControllers.createCertificate,
 );
 
-router.get(
-  '/',
-  CertificatesControllers.getAllCertificates
-);
-router.get(
-  '/:id',
-  CertificatesControllers.getCertificateById
-);
+router.get('/', CertificatesControllers.getAllCertificates);
+router.get('/:id', CertificatesControllers.getCertificateById);
 
 router.patch(
   '/:id',
   auth('admin'),
-  validateRequest(
-    CertificatesValidations.updateCertificatesValidationSchema
-  ),
-  CertificatesControllers.updateCertificate
+  validateRequest(CertificatesValidations.updateCertificatesValidationSchema),
+  CertificatesControllers.updateCertificate,
 );
 
-router.delete(
-  '/:id',
-  auth('admin'),
-  CertificatesControllers.deleteCertificate
-);
+router.delete('/:id', auth('admin'), CertificatesControllers.deleteCertificate);
 
 export const CertificatesRoutes = router;

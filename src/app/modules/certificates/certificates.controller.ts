@@ -5,7 +5,10 @@ import { CertificatesServices } from './certificates.service';
 
 // create certificate
 const createCertificate = catchAsync(async (req, res) => {
-  const result = await CertificatesServices.createCertificateIntoDB(req.user, req.body);
+  const result = await CertificatesServices.createCertificateIntoDB(
+    req.user,
+    req.body,
+  );
 
   // send response
   sendResponse(res, {
@@ -48,7 +51,11 @@ const getCertificateById = catchAsync(async (req, res) => {
 // update certificate skill
 const updateCertificate = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await CertificatesServices.updateCertificateIntoDB(id, req.user, req.body);
+  const result = await CertificatesServices.updateCertificateIntoDB(
+    id,
+    req.user,
+    req.body,
+  );
 
   // send response
   sendResponse(res, {
@@ -62,7 +69,10 @@ const updateCertificate = catchAsync(async (req, res) => {
 // delete certificate
 const deleteCertificate = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await CertificatesServices.deleteCertificateIntoDB(id, req.user);
+  const result = await CertificatesServices.deleteCertificateIntoDB(
+    id,
+    req.user,
+  );
 
   // send response
   sendResponse(res, {
@@ -74,9 +84,9 @@ const deleteCertificate = catchAsync(async (req, res) => {
 });
 
 export const CertificatesControllers = {
-    createCertificate,
-    getAllCertificates,
-    getCertificateById,
-    updateCertificate,
-    deleteCertificate
+  createCertificate,
+  getAllCertificates,
+  getCertificateById,
+  updateCertificate,
+  deleteCertificate,
 };

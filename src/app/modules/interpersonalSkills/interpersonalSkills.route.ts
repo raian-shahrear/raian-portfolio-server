@@ -53,14 +53,8 @@ router.post(
   TechnicalSkillsControllers.createTechnicalSkill,
 );
 
-router.get(
-  '/technical',
-  TechnicalSkillsControllers.getAllTechnicalSkills,
-);
-router.get(
-  '/technical/:id',
-  TechnicalSkillsControllers.getTechnicalSkillById,
-);
+router.get('/technical', TechnicalSkillsControllers.getAllTechnicalSkills);
+router.get('/technical/:id', TechnicalSkillsControllers.getTechnicalSkillById);
 
 router.delete(
   '/technical/:id',

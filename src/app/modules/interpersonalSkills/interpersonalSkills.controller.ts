@@ -5,7 +5,11 @@ import { InterpersonalSkillServices } from './interpersonalSkills.service';
 
 // create interpersonal skill
 const createInterpersonalSkill = catchAsync(async (req, res) => {
-  const result = await InterpersonalSkillServices.createInterpersonalSkillIntoDB(req.user, req.body);
+  const result =
+    await InterpersonalSkillServices.createInterpersonalSkillIntoDB(
+      req.user,
+      req.body,
+    );
 
   // send response
   sendResponse(res, {
@@ -18,7 +22,8 @@ const createInterpersonalSkill = catchAsync(async (req, res) => {
 
 // get all interpersonal skills
 const getAllInterpersonalSkills = catchAsync(async (req, res) => {
-  const result = await InterpersonalSkillServices.getAllInterpersonalSkillsFromDB();
+  const result =
+    await InterpersonalSkillServices.getAllInterpersonalSkillsFromDB();
 
   // send response
   res.status(result?.length ? httpStatus.OK : httpStatus.NOT_FOUND).json({
@@ -34,7 +39,8 @@ const getAllInterpersonalSkills = catchAsync(async (req, res) => {
 // get interpersonal skill by id
 const getInterpersonalSkillById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await InterpersonalSkillServices.getInterpersonalSkillByIdFromDB(id);
+  const result =
+    await InterpersonalSkillServices.getInterpersonalSkillByIdFromDB(id);
 
   // send response
   sendResponse(res, {
@@ -48,7 +54,12 @@ const getInterpersonalSkillById = catchAsync(async (req, res) => {
 // update interpersonal skill
 const updateInterpersonalSkill = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await InterpersonalSkillServices.updateInterpersonalSkillIntoDB(id, req.user, req.body);
+  const result =
+    await InterpersonalSkillServices.updateInterpersonalSkillIntoDB(
+      id,
+      req.user,
+      req.body,
+    );
 
   // send response
   sendResponse(res, {
@@ -62,7 +73,11 @@ const updateInterpersonalSkill = catchAsync(async (req, res) => {
 // delete interpersonal skill
 const deleteInterpersonalSkill = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await InterpersonalSkillServices.deleteInterpersonalSkillIntoDB(id, req.user);
+  const result =
+    await InterpersonalSkillServices.deleteInterpersonalSkillIntoDB(
+      id,
+      req.user,
+    );
 
   // send response
   sendResponse(res, {
@@ -74,9 +89,9 @@ const deleteInterpersonalSkill = catchAsync(async (req, res) => {
 });
 
 export const InterpersonalSkillControllers = {
-    createInterpersonalSkill,
-    getAllInterpersonalSkills,
-    getInterpersonalSkillById,
-    updateInterpersonalSkill,
-    deleteInterpersonalSkill
+  createInterpersonalSkill,
+  getAllInterpersonalSkills,
+  getInterpersonalSkillById,
+  updateInterpersonalSkill,
+  deleteInterpersonalSkill,
 };

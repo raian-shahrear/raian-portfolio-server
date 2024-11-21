@@ -1,4 +1,4 @@
 export type TInterpersonalSkills = {
-    title: string;
-    details: string;
+  title: string;
+  details: string;
 };
