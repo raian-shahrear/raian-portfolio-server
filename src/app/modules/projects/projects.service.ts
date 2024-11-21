@@ -3,6 +3,7 @@ import { UserModel } from '../user/user.model';
 import { TProject } from './projects.interface';
 import httpStatus from 'http-status-codes';
 import { ProjectModel } from './projects.model';
+import QueryBuilder from '../../builder/QueryBuilder';
 
 // create project
 const createProjectIntoDB = async (
@@ -18,10 +19,18 @@ const createProjectIntoDB = async (
 };
 
 // get all projects
-const getAllProjectsFromDB = async () => {
-  const result = await ProjectModel.find();
+const getAllProjectsFromDB = async (query: Record<string, unknown>) => {
+  const getQuery = new QueryBuilder(ProjectModel.find(), query)
+    .sort()
+    .search(['title', 'subtitle', 'allFeatures', 'technologies'])
+    .paginate();
+  const result = await getQuery.queryModel;
+  const meta = await getQuery.countTotal();
 
-  return result;
+  return {
+    meta,
+    result,
+  };
 };
 
 // get project by id

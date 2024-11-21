@@ -18,17 +18,20 @@ const createBlog = catchAsync(async (req, res) => {
 
 // get all blogs
 const getAllBlogs = catchAsync(async (req, res) => {
-  const result = await BlogServices.getAllBlogsFromDB();
+  const result = await BlogServices.getAllBlogsFromDB(req.query);
 
   // send response
-  res.status(result?.length ? httpStatus.OK : httpStatus.NOT_FOUND).json({
-    success: result?.length ? true : false,
-    statusCode: result?.length ? httpStatus.OK : httpStatus.NOT_FOUND,
-    message: result?.length
-      ? 'Blogs are retrieved successfully!'
-      : 'No Data Found!',
-    data: result,
-  });
+  res
+    .status(result?.result?.length ? httpStatus.OK : httpStatus.NOT_FOUND)
+    .json({
+      success: result?.result?.length ? true : false,
+      statusCode: result?.result?.length ? httpStatus.OK : httpStatus.NOT_FOUND,
+      message: result?.result?.length
+        ? 'Blogs are retrieved successfully!'
+        : 'No Data Found!',
+      data: result?.result,
+      meta: result?.meta,
+    });
 });
 
 // get blog by id

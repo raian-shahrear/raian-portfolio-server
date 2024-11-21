@@ -3,6 +3,7 @@ import { TExperience } from './experiences.interface';
 import { UserModel } from '../user/user.model';
 import AppError from '../../errors/AppError';
 import { ExperienceModel } from './experiences.model';
+import QueryBuilder from '../../builder/QueryBuilder';
 
 // create experience
 const createExperienceIntoDB = async (
@@ -18,10 +19,18 @@ const createExperienceIntoDB = async (
 };
 
 // get all experiences
-const getAllExperiencesFromDB = async () => {
-  const result = await ExperienceModel.find();
+const getAllExperiencesFromDB = async (query: Record<string, unknown>) => {
+  const getQuery = new QueryBuilder(ExperienceModel.find(), query)
+    .sort()
+    .search(['companyName', 'designation', 'employeeType', 'locationType'])
+    .paginate();
+  const result = await getQuery.queryModel;
+  const meta = await getQuery.countTotal();
 
-  return result;
+  return {
+    meta,
+    result,
+  };
 };
 
 // get experience by id

@@ -21,17 +21,20 @@ const createExperience = catchAsync(async (req, res) => {
 
 // get all experiences
 const getAllExperiences = catchAsync(async (req, res) => {
-  const result = await ExperienceServices.getAllExperiencesFromDB();
+  const result = await ExperienceServices.getAllExperiencesFromDB(req.query);
 
   // send response
-  res.status(result?.length ? httpStatus.OK : httpStatus.NOT_FOUND).json({
-    success: result?.length ? true : false,
-    statusCode: result?.length ? httpStatus.OK : httpStatus.NOT_FOUND,
-    message: result?.length
-      ? 'Experiences are retrieved successfully!'
-      : 'No Data Found!',
-    data: result,
-  });
+  res
+    .status(result?.result?.length ? httpStatus.OK : httpStatus.NOT_FOUND)
+    .json({
+      success: result?.result?.length ? true : false,
+      statusCode: result?.result?.length ? httpStatus.OK : httpStatus.NOT_FOUND,
+      message: result?.result?.length
+        ? 'Experiences are retrieved successfully!'
+        : 'No Data Found!',
+      data: result?.result,
+      meta: result?.meta,
+    });
 });
 
 // get experience by id

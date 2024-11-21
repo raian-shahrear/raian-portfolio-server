@@ -1,3 +1,4 @@
+import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppError';
 import { UserModel } from '../user/user.model';
 import { TBlog } from './blogs.interface';
@@ -18,10 +19,18 @@ const createBlogIntoDB = async (
 };
 
 // get all blogs
-const getAllBlogsFromDB = async () => {
-  const result = await BlogModel.find();
+const getAllBlogsFromDB = async (query: Record<string, unknown>) => {
+  const getQuery = new QueryBuilder(BlogModel.find(), query)
+    .sort()
+    .search(['title', 'description'])
+    .paginate();
+  const result = await getQuery.queryModel;
+  const meta = await getQuery.countTotal();
 
-  return result;
+  return {
+    meta,
+    result,
+  };
 };
 
 // get blog by id
