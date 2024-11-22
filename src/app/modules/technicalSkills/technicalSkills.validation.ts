@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 const technicalValidationSchema = z.object({
   icon: z.string(),
+  iconColor: z.string(),
   title: z.string(),
 });
 

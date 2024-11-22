@@ -6,6 +6,10 @@ const technicalSchema = new Schema<TTechnical>({
     type: String,
     required: true,
   },
+  iconColor: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,

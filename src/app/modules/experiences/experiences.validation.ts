@@ -10,6 +10,8 @@ const companyProjectSchema = z.object({
 const createExperienceValidationSchema = z.object({
   body: z.object({
     companyName: z.string(),
+    companyLocation: z.string(),
+    companyLink: z.string(),
     joiningDate: z.date(),
     endingDate: z.date().optional(),
     designation: z.string(),
@@ -30,6 +32,8 @@ const updateCompanyProjectSchema = z.object({
 const updateExperienceValidationSchema = z.object({
   body: z.object({
     companyName: z.string().optional(),
+    companyLocation: z.string().optional(),
+    companyLink: z.string().optional(),
     joiningDate: z.date().optional(),
     endingDate: z.date().optional(),
     designation: z.string().optional(),

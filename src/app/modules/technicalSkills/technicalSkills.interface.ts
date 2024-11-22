@@ -1,6 +1,7 @@
 export type TTechnical = {
   _id?: string;
   icon: string;
+  iconColor: string;
   title: string;
 };
 

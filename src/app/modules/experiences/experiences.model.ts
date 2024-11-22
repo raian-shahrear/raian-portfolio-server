@@ -29,6 +29,14 @@ const experienceSchema = new Schema<TExperience>(
       type: String,
       required: true,
     },
+    companyLocation: {
+      type: String,
+      required: true,
+    },
+    companyLink: {
+      type: String,
+      required: true,
+    },
     joiningDate: {
       type: Date,
       required: true,

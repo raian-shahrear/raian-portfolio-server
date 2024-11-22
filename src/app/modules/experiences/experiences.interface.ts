@@ -7,6 +7,8 @@ export type TCompanyProject = {
 
 export type TExperience = {
   companyName: string;
+  companyLocation: string;
+  companyLink: string;
   joiningDate: Date;
   endingDate?: Date;
   designation: string;
